@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route, RouteChildrenProps, Switch } from 'react-router-dom';
 
 import routes from './config/route';
 
