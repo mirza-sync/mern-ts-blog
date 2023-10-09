@@ -2,9 +2,7 @@ import { Route, RouteChildrenProps, Switch } from 'react-router-dom';
 
 import routes from './config/route';
 
-export interface IApplictionProps {
-  //
-}
+export interface IApplictionProps {}
 
 const Application: React.FunctionComponent<IApplictionProps> = (props) => {
   return (
