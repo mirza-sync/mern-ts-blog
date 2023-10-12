@@ -1,4 +1,4 @@
-type HomePageProps {}
+type HomePageProps = {};
 
 const HomePage = (props: HomePageProps) => {
   return <div>Home Page</div>;
