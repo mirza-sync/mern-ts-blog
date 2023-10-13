@@ -6,7 +6,7 @@ type HeaderProps = {
   image?: string;
   title: string;
   headline: string;
-  children: ReactNode;
+  children?: ReactNode;
 };
 
 function Header({
