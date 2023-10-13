@@ -1,7 +1,19 @@
-type HomePageProps = {};
+import { Container } from 'reactstrap';
 
-const HomePage = (props: HomePageProps) => {
-  return <div>Home Page</div>;
+import Header from '../components/Header';
+import Navigation from '../components/Navigation';
+
+const HomePage = () => {
+  return (
+    <Container fluid className="p-0">
+      <Navigation />
+      <Header
+        title="A Nerdy Blog Website"
+        headline="Check out what people have to say!"
+      />
+      <Container>Blog stuff here...</Container>
+    </Container>
+  );
 };
 
 export default HomePage;
