@@ -20,3 +20,7 @@ This is a CRUD blog webapp from the [MERN Typescript BLOG Application](https://w
   3. Find a tutorial of setting up latest react-router and combine it with this tutorial.
 
   > Still don't know what to do yet. Maybe I'll go with option 2.
+
+- **Update** : I've chose option 1, which is to downgrade to react-router-dom v6 to v5. There's already pinned comment that ask viewers to use v5. But I don't realize this lol. Maybe should've read the comments before watching a video.
+
+- Btw this tutorial kinda sucks. There's bunch of interfaces created in seperate files. Makes me feel like doing Java. I prefer to create the type/interface in the file that uses it. Then will consider refactor out the types if it is used in multiple places.
