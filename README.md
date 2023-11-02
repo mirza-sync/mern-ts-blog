@@ -11,7 +11,7 @@ This is a CRUD blog webapp from the [MERN Typescript BLOG Application](https://w
 - Learn MongoDB.
 - Practice Typescript.
 
-## Progress
+## Logs
 
 - This tutorial was outdated. In part 3 of the video, the instructor demonstrated setting up react router from scratch, along with custom Typescript interfaces. But the latest React router uses different implementation with different prop types. Hence I have a few options:
 
@@ -24,3 +24,5 @@ This is a CRUD blog webapp from the [MERN Typescript BLOG Application](https://w
 - **Update** : I've chose option 1, which is to downgrade to react-router-dom v6 to v5. There's already pinned comment that ask viewers to use v5. But I don't realize this lol. Maybe should've read the comments before watching a video.
 
 - Btw this tutorial kinda sucks. There's bunch of interfaces created in seperate files. Makes me feel like doing Java. I prefer to create the type/interface in the file that uses it. Then will consider refactor out the types if it is used in multiple places.
+
+- The instructor uses Context API to manage user state. But he kinda mixing it with Redux pattern by writing reducers and dispatching actions. Is this pattern valid?
