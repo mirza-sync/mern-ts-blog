@@ -1,6 +1,7 @@
 import { useEffect, useReducer, useState } from 'react';
 import { Route, RouteChildrenProps, Switch } from 'react-router-dom';
 
+import AuthRoute from './components/AuthRoute';
 import LoadingComponent from './components/LoadingComponent';
 import routes from './config/route';
 import { initialUserState, UserContextProvider, userReducer } from './contexts/user';
@@ -49,6 +50,19 @@ const Application: React.FunctionComponent = () => {
     <UserContextProvider value={userContextValues}>
       <Switch>
         {routes.map((route, index) => {
+          if (route.auth) {
+            <Route
+              key={index}
+              exact={route.exact}
+              path={route.path}
+              render={(routerProps: RouteChildrenProps<any>) => (
+                <AuthRoute>
+                  <route.component {...routerProps} />
+                </AuthRoute>
+              )}
+            />;
+          }
+
           return (
             <Route
               key={index}
