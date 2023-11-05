@@ -1,3 +1,5 @@
+import './assets/styles/dots.css';
+
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
