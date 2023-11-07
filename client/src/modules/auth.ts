@@ -1,10 +1,10 @@
-import { signInWithPopup, UserCredential } from 'firebase/auth';
+import { AuthProvider, signInWithPopup, UserCredential } from 'firebase/auth';
 
-import { auth, Providers } from '../config/firebase';
+import { auth } from '../config/firebase';
 
-export const signInWithSocialMedia = (provider: typeof Providers) => {
+export const signInWithSocialMedia = (provider: AuthProvider) => {
   return new Promise<UserCredential>((resolve, reject) => {
-    signInWithPopup(auth, provider.google)
+    signInWithPopup(auth, provider)
       .then((result) => resolve(result))
       .catch((error) => reject(error));
   });
