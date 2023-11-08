@@ -3,19 +3,11 @@ import express from 'express';
 import logging from './config/logging';
 import config from './config/config';
 import mongoose from 'mongoose';
-import firebaseAdmin from 'firebase-admin';
 
 const router = express();
 
 // Server handling
 const httpServer = http.createServer(router);
-
-// Connect to firebase admin
-let serviceAccountKey = require('./config/serviceAccountKey.json');
-
-firebaseAdmin.initializeApp({
-  credential: firebaseAdmin.credential.cert(serviceAccountKey),
-});
 
 // Connect to Mongodb
 mongoose
