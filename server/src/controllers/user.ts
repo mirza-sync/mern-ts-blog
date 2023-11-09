@@ -84,9 +84,47 @@ const login = (req: Request, res: Response, next: NextFunction) => {
     });
 };
 
-const read = (req: Request, res: Response, next: NextFunction) => {};
+// Get user by id
+const read = (req: Request, res: Response, next: NextFunction) => {
+  const _id = req.params.userId;
 
-const readAll = (req: Request, res: Response, next: NextFunction) => {};
+  return User.findById(_id)
+    .then((user) => {
+      if (user) {
+        return res.status(200).json({
+          user,
+        });
+      } else {
+        return res.status(404).json({
+          message: 'User not found',
+        });
+      }
+    })
+    .catch((error) => {
+      logging.error(error);
+      return res.status(500).json({
+        error,
+      });
+    });
+};
+
+// Get all users
+const readAll = (req: Request, res: Response, next: NextFunction) => {
+  return User.find()
+    .exec()
+    .then((users) => {
+      return res.status(200).json({
+        count: users.length,
+        users,
+      });
+    })
+    .catch((error) => {
+      logging.error(error);
+      return res.status(500).json({
+        error,
+      });
+    });
+};
 
 export default {
   validate,
