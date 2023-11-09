@@ -126,10 +126,12 @@ const readAll = (req: Request, res: Response, next: NextFunction) => {
     });
 };
 
-export default {
+const controller = {
   validate,
   create,
   login,
   read,
   readAll,
 };
+
+export default controller;

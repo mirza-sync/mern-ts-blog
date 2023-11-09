@@ -46,3 +46,5 @@ const extractFirebaseInfo = (req: Request, res: Response, next: NextFunction) =>
     });
   }
 };
+
+export default extractFirebaseInfo;
