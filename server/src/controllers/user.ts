@@ -57,7 +57,32 @@ const create = (req: Request, res: Response, next: NextFunction) => {
     });
 };
 
-const login = (req: Request, res: Response, next: NextFunction) => {};
+const login = (req: Request, res: Response, next: NextFunction) => {
+  logging.info('Loggin in user');
+
+  const { uid } = req.body;
+  const fireToken = res.locals.fireToken;
+
+  return User.findOne({ uid })
+    .then((user) => {
+      if (user) {
+        logging.info(`User ${uid} found. Signing in...`);
+        return res.status(200).json({
+          user,
+          fireToken,
+        });
+      } else {
+        logging.info(`User ${uid} not found. Registering...`);
+        return create(req, res, next);
+      }
+    })
+    .catch((error) => {
+      logging.error(error);
+      return res.status(500).json({
+        error,
+      });
+    });
+};
 
 const read = (req: Request, res: Response, next: NextFunction) => {};
 
