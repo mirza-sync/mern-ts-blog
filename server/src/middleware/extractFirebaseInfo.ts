@@ -3,7 +3,7 @@ import logging from '../config/logging';
 import firebaseAdmin from 'firebase-admin';
 
 // Connect to firebase admin
-let serviceAccountKey = require('./config/serviceAccountKey.json');
+let serviceAccountKey = require('../config/serviceAccountKey.json');
 
 const app = firebaseAdmin.initializeApp({
   credential: firebaseAdmin.credential.cert(serviceAccountKey),
