@@ -3,8 +3,10 @@ import { Route, RouteChildrenProps, Switch } from 'react-router-dom';
 
 import AuthRoute from './components/AuthRoute';
 import LoadingComponent from './components/LoadingComponent';
+import logging from './config/logging';
 import routes from './config/route';
 import { initialUserState, UserContextProvider, userReducer } from './contexts/user';
+import { validate } from './modules/auth';
 
 const Application: React.FunctionComponent = () => {
   const [user, userDispatch] = useReducer(userReducer, initialUserState);
@@ -34,6 +36,21 @@ const Application: React.FunctionComponent = () => {
       setTimeout(() => {
         setLoading(false);
       }, 1000);
+
+      return validate(fireToken, (error, user) => {
+        if (error) {
+          logging.error(error);
+          setAuthStage('User not valid. Logging out.');
+          userDispatch({ type: 'logout', payload: initialUserState });
+        } else if (user) {
+          setAuthStage('User authenticated');
+          userDispatch({ type: 'login', payload: { user, fire_token: fireToken } });
+        }
+
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      });
     }
   };
 

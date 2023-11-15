@@ -9,7 +9,7 @@ import TextMessage from '../components/TextMessage';
 import { Providers } from '../config/firebase';
 import logging from '../config/logging';
 import UserContext from '../contexts/user';
-import { signInWithSocialMedia as socialMediaPopup } from '../modules/auth';
+import { authenticate, signInWithSocialMedia as socialMediaPopup } from '../modules/auth';
 
 const LoginPage = () => {
   const [authenticating, setAuthenticating] = useState(false);
@@ -32,6 +32,18 @@ const LoginPage = () => {
           if (name) {
             try {
               const fireToken = await user.getIdToken();
+              authenticate(id, name, fireToken, (error, _user) => {
+                if (error) {
+                  setAuthError(error);
+                  setAuthenticating(false);
+                } else if (_user) {
+                  userContext.userDispatch({
+                    type: 'login',
+                    payload: { user: _user, fire_token: fireToken },
+                  });
+                  history.push('/');
+                }
+              });
             } catch (error) {
               setAuthError('Invalid token');
               logging.error(authError);
