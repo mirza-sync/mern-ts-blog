@@ -25,4 +25,6 @@ This is a CRUD blog webapp from the [MERN Typescript BLOG Application](https://w
 
 - Btw this tutorial kinda sucks. There's bunch of interfaces created in seperate files. Makes me feel like doing Java. I prefer to create the type/interface in the file that uses it. Then will consider refactor out the types if it is used in multiple places.
 
-- The instructor uses Context API to manage user state. But he kinda mixing it with Redux pattern by writing reducers and dispatching actions. Is this pattern valid?
+- The instructor uses Context API to manage user state. But he kinda mixing it with Redux pattern by writing reducers and dispatching actions. Is this pattern effective?
+
+- I never understand callbacks. For example, in an event listener function, where does the "event" argument came from? Who declared it there in the first place? When going through the tutorial and doing the authenticate method, I need to write a callback from scratch. That's the moment that I get the gist of what callbacks are.
