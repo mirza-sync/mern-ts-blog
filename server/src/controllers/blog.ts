@@ -114,11 +114,30 @@ const update = (req: Request, res: Response, next: NextFunction) => {
     });
 };
 
+const deleteBlog = (req: Request, res: Response, next: NextFunction) => {
+  const _id = req.params.blogId;
+  logging.warn(`Incoming delete for blog ${_id}`);
+
+  return Blog.findByIdAndDelete(_id)
+    .then(() => {
+      return res.status(200).json({
+        message: 'Blog deleted',
+      });
+    })
+    .catch((error) => {
+      logging.error(error);
+      return res.status(500).json({
+        error,
+      });
+    });
+};
+
 const controller = {
   create,
   read,
   query,
   update,
+  deleteBlog,
 };
 
 export default controller;
