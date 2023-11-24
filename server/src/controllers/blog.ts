@@ -78,10 +78,47 @@ const query = (req: Request, res: Response, next: NextFunction) => {
     });
 };
 
+const update = (req: Request, res: Response, next: NextFunction) => {
+  const _id = req.params.blogId;
+  logging.info(`Updating blog ${_id}...`);
+
+  return Blog.findById(_id)
+    .exec()
+    .then((blog) => {
+      if (blog) {
+        blog.set(req.body);
+
+        blog
+          .save()
+          .then((blog) => {
+            logging.info(`Blog updated`);
+            return res.status(200).json({
+              blog,
+            });
+          })
+          .catch((error) => {
+            logging.error(error);
+            return res.status(500).json({
+              error,
+            });
+          });
+      } else {
+        return res.status(404).json({ message: `Blog ${_id} not found` });
+      }
+    })
+    .catch((error) => {
+      logging.error(error);
+      return res.status(500).json({
+        error,
+      });
+    });
+};
+
 const controller = {
   create,
   read,
   query,
+  update,
 };
 
 export default controller;
