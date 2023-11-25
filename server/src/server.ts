@@ -4,6 +4,7 @@ import logging from './config/logging';
 import config from './config/config';
 import mongoose from 'mongoose';
 import userRoutes from './routes/user';
+import blogRoutes from './routes/blog';
 
 const router = express();
 
@@ -57,6 +58,7 @@ router.use((req, res, next) => {
 
 // Routes
 router.use('/users', userRoutes);
+router.use('/blogs', blogRoutes);
 
 // Error handling
 router.use((req, res, next) => {
