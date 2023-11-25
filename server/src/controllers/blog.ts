@@ -59,6 +59,26 @@ const read = (req: Request, res: Response, next: NextFunction) => {
 };
 
 // Get all blogs
+const readAll = (req: Request, res: Response, next: NextFunction) => {
+  logging.info('Get all blogs...');
+
+  return Blog.find()
+    .exec()
+    .then((blogs) => {
+      return res.status(200).json({
+        count: blogs.length,
+        blogs,
+      });
+    })
+    .catch((error) => {
+      logging.error(error);
+      return res.status(500).json({
+        error,
+      });
+    });
+};
+
+// Search blogs
 const query = (req: Request, res: Response, next: NextFunction) => {
   logging.info('Querying blogs...');
 
@@ -135,6 +155,7 @@ const deleteBlog = (req: Request, res: Response, next: NextFunction) => {
 const controller = {
   create,
   read,
+  readAll,
   query,
   update,
   deleteBlog,
