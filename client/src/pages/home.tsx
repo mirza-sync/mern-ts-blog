@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Container } from 'reactstrap';
 
+import BlogPreview from '../components/BlogPreview';
 import Header from '../components/Header';
 import LoadingComponent from '../components/LoadingComponent';
 import Navigation from '../components/Navigation';
@@ -56,7 +57,7 @@ const HomePage = () => {
         <TextMessage type={'error'} message={error} />;
         {blogs.length === 0 && <p>There are no blogs yet. You should post one!</p>}
         {blogs.map((blog) => {
-          return <div key={blog._id}>Blogs here...</div>;
+          return <BlogPreview key={blog._id} blog={blog} />;
         })}
       </Container>
     </Container>
