@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardBody } from 'reactstrap';
 
 import Blog from '../../interfaces/blog';
+import IUser from '../../interfaces/user';
 
 interface BlogPreviewProps {
   blog: Blog;
@@ -10,6 +11,7 @@ interface BlogPreviewProps {
 
 function BlogPreview(props: BlogPreviewProps) {
   const { _id, author, title, headline, createdAt, updatedAt } = props.blog;
+  const _author = author as IUser;
   return (
     <Card className="border-0">
       <CardBody className="p-0">
@@ -22,11 +24,11 @@ function BlogPreview(props: BlogPreviewProps) {
         </Link>
         {createdAt !== updatedAt ? (
           <p>
-            Updated by {author} at {new Date(updatedAt).toLocaleString()}
+            Updated by {_author.name} at {new Date(updatedAt).toLocaleString()}
           </p>
         ) : (
           <p>
-            Posted by {author} at {new Date(createdAt).toLocaleString()}
+            Posted by {_author.name} at {new Date(createdAt).toLocaleString()}
           </p>
         )}
         {props.children}
