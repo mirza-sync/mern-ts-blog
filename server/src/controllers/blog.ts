@@ -39,6 +39,7 @@ const read = (req: Request, res: Response, next: NextFunction) => {
   const _id = req.params.blogId;
 
   return Blog.findById(_id)
+    .populate('author')
     .then((blog) => {
       if (blog) {
         return res.status(200).json({
@@ -63,6 +64,7 @@ const readAll = (req: Request, res: Response, next: NextFunction) => {
   logging.info('Get all blogs...');
 
   return Blog.find()
+    .populate('author')
     .exec()
     .then((blogs) => {
       return res.status(200).json({
@@ -83,6 +85,7 @@ const query = (req: Request, res: Response, next: NextFunction) => {
   logging.info('Querying blogs...');
 
   return Blog.find(req.body)
+    .populate('author')
     .exec()
     .then((blogs) => {
       return res.status(200).json({
