@@ -3,8 +3,12 @@ import htmlToDraft from 'html-to-draftjs';
 import { useContext, useEffect, useState } from 'react';
 import { ContentState, EditorState } from 'react-draft-wysiwyg';
 import { RouteComponentProps } from 'react-router-dom';
+import { Container, Form, FormGroup, Input, Label } from 'reactstrap';
 
+import Header from '../components/Header';
 import LoadingComponent from '../components/LoadingComponent';
+import Navigation from '../components/Navigation';
+import TextMessage from '../components/TextMessage';
 import config from '../config/config';
 import logging from '../config/logging';
 import UserContext from '../contexts/user';
@@ -149,7 +153,29 @@ const EditPage = (props: RouteComponentProps) => {
 
   if (loading) return <LoadingComponent>Loading editor...</LoadingComponent>;
 
-  return <div>Edit Page</div>;
+  return (
+    <Container fluid className="p-0">
+      <Navigation />
+      <Header title={_id !== '' ? 'Edit your blog' : 'Create a blog'} headline={''} />
+      <Container>
+        <TextMessage type={'error'} message={error} />
+        <Form>
+          <FormGroup>
+            <Label for="title">Title</Label>
+            <Input
+              type="text"
+              name="title"
+              value={title}
+              id="title"
+              placeholder="Enter a title"
+              disabled={isSaving}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </FormGroup>
+        </Form>
+      </Container>
+    </Container>
+  );
 };
 
 export default EditPage;
