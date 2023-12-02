@@ -1,9 +1,13 @@
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
 import axios from 'axios';
+import { convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import { useContext, useEffect, useState } from 'react';
-import { ContentState, EditorState } from 'react-draft-wysiwyg';
-import { RouteComponentProps } from 'react-router-dom';
-import { Container, Form, FormGroup, Input, Label } from 'reactstrap';
+import { ContentState, Editor, EditorState } from 'react-draft-wysiwyg';
+import { Link, RouteComponentProps, withRouter } from 'react-router-dom';
+import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 
 import Header from '../components/Header';
 import LoadingComponent from '../components/LoadingComponent';
@@ -161,7 +165,7 @@ const EditPage = (props: RouteComponentProps) => {
         <TextMessage type={'error'} message={error} />
         <Form>
           <FormGroup>
-            <Label for="title">Title</Label>
+            <Label for="title">Title *</Label>
             <Input
               type="text"
               name="title"
@@ -172,10 +176,94 @@ const EditPage = (props: RouteComponentProps) => {
               onChange={(e) => setTitle(e.target.value)}
             />
           </FormGroup>
+          <FormGroup>
+            <Label for="picture">Picture</Label>
+            <Input
+              type="text"
+              name="picture"
+              value={picture}
+              id="picture"
+              placeholder="Picture URL, ex: https://...."
+              disabled={isSaving}
+              onChange={(e) => setPicture(e.target.value)}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="headline">Headline *</Label>
+            <Input
+              type="text"
+              name="headline"
+              value={headline}
+              id="headline"
+              placeholder="Enter a headline"
+              disabled={isSaving}
+              onChange={(e) => setHeadline(e.target.value)}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="headline">Content</Label>
+            <Editor
+              editorState={editorState}
+              wrapperClassName="card"
+              editorClassName="card-body"
+              onEditorStateChange={(newState) => {
+                setEditorState(newState);
+                setContent(draftToHtml(convertToRaw(newState.getCurrentContent())));
+              }}
+              toolbar={{
+                options: [
+                  'inline',
+                  'blockType',
+                  'fontSize',
+                  'list',
+                  'textAlign',
+                  'history',
+                  'embedded',
+                  'emoji',
+                  'image',
+                ],
+                inline: { inDropdown: true },
+                list: { inDropdown: true },
+                textAlign: { inDropdown: true },
+                link: { inDropdown: true },
+                history: { inDropdown: true },
+              }}
+            />
+          </FormGroup>
+          <FormGroup>
+            <TextMessage type={'success'} message={success} />
+          </FormGroup>
+          <FormGroup>
+            <Button
+              block
+              onClick={() => {
+                if (_id) {
+                  editBlog();
+                } else {
+                  createBlog();
+                }
+              }}
+              disabled={isSaving}
+            >
+              <i className="fas fa-save mr-1"></i>
+              {_id ? 'Update' : 'Post'}
+            </Button>
+            {_id && (
+              <Button block color="success" tag={Link} to={`/blogs/${_id}`}>
+                View your blog post!
+              </Button>
+            )}
+          </FormGroup>
+          <FormGroup>
+            <Label>Preview</Label>
+            <div className="border p-2">
+              <div dangerouslySetInnerHTML={{ __html: content }} />
+            </div>
+          </FormGroup>
         </Form>
       </Container>
     </Container>
   );
 };
 
-export default EditPage;
+export default withRouter(EditPage);
