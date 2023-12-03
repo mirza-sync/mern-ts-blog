@@ -28,3 +28,5 @@ This is a CRUD blog webapp from the [MERN Typescript BLOG Application](https://w
 - The instructor uses Context API to manage user state. But he kinda mixing it with Redux pattern by writing reducers and dispatching actions. Is this pattern effective?
 
 - I never understand callbacks. For example, in an event listener function, where does the "event" argument came from? Who declared it there in the first place? When going through the tutorial and doing the authenticate method, I need to write a callback from scratch. That's the moment that I get the gist of what callbacks are.
+
+- I can't make the wysiwyg to work. Seems like changing the import source doesn't help.
